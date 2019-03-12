@@ -6,18 +6,6 @@ const userRoutes=express.Router();
 const checkAuth=require('../middleware/auth-validator');
 const PostData=require('../models/postData');
 
-function hashPassword (pass) {
-
-    bcrypt.genSalt(10, function(err, salt) {
-        if (err) 
-          return err;
-    
-        bcrypt.hash(pass, salt, function(err, hash) {
-          return hash;
-        });
-    });
-  }
-
 //Login and create JWT Token
 userRoutes.post('/login',(req,res,next)=>{
     PostData.findOne({email: req.body.email})
@@ -34,17 +22,17 @@ userRoutes.post('/login',(req,res,next)=>{
                     expiresIn: '1h'
                 })
 
-                res.status(200).json({
+                return res.status(200).json({
                     token: token
                 })
             }
         })
-        .catch(err=>{
-            return res.status(401).json({
-                message: 'Invalid credentials',
-                error: err
-            })
-        })
+        // .catch(err=>{
+        //     return res.status(401).json({
+        //         message: 'Invalid credentials',
+        //         error: err
+        //     })
+        // })
 })
 
 //Post Data to Server
@@ -125,7 +113,7 @@ userRoutes.get('/getData',checkAuth,(req,res,next)=>{ //use the app to send the 
 })
 
 //Delete data from server
-userRoutes.delete('/deleteData/:name',auth,(req,res,next)=>{
+userRoutes.delete('/deleteData/:name',checkAuth,(req,res,next)=>{
     if(req.params.name){
         PostData.deleteOne({name: req.params.name})
         .then(result=>{

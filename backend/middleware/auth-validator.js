@@ -8,8 +8,8 @@ module.exports= (req,res,next)=>{
         jwt.verify(token,"MY_LONG_SECRET_KEY");
         next();
     }
-    catch{
-        res.status(401).json({
+    catch(err){
+        return res.status(401).json({
             message: 'Unthorized access detected.'
         })
     }
