@@ -3,6 +3,7 @@ const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const userRoutes=express.Router();
 
+const checkAuth=require('../middleware/auth-validator');
 const PostData=require('../models/postData');
 
 function hashPassword (pass) {
@@ -102,8 +103,8 @@ userRoutes.post('/signup',(req,res,next)=>{
     
 })
 
-//Get Data from Server
-userRoutes.get('/getData',(req,res,next)=>{ //use the app to send the response when it get requested from server
+//Get Data from Server with token Authentication
+userRoutes.get('/getData',checkAuth,(req,res,next)=>{ //use the app to send the response when it get requested from server
     //Remember that these query fields are optional
     var pageSize= +req.query.pageSize; //By default request params are string. Adding + to convert them to int
     var limit= +req.query.limit;
@@ -124,7 +125,7 @@ userRoutes.get('/getData',(req,res,next)=>{ //use the app to send the response w
 })
 
 //Delete data from server
-userRoutes.delete('/deleteData/:name',(req,res,next)=>{
+userRoutes.delete('/deleteData/:name',auth,(req,res,next)=>{
     if(req.params.name){
         PostData.deleteOne({name: req.params.name})
         .then(result=>{
