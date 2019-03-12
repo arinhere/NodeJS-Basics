@@ -4,7 +4,8 @@ A demo application to depict
 2. Connecting to MongoDB
 3. Basic CRUD operation
 4. How to create JWT token
-5. Create Routes
-6. Creating DB Models
+5. Verify JWT token when user call and protect route
+6. Create Routes
+7. Creating DB Models
 
 etc
