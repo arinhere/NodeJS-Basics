@@ -10,29 +10,27 @@ const PostData=require('../models/postData');
 userRoutes.post('/login',(req,res,next)=>{
     PostData.findOne({email: req.body.email})
         .then(result=>{
-            if(result){
-                if(result.password!=req.body.password){
-                    return res.status(401).json({
-                        message: 'Invalid credentials',
-                    })
-                }
-
-                //create JWT
-                var token=jwt.sign({email: req.body.email},"MY_LONG_SECRET_KEY",{
-                    expiresIn: '1h'
-                })
-
-                return res.status(200).json({
-                    token: token
+            if(result.password!=req.body.password){
+                return res.status(401).json({
+                    message: 'Invalid credentials',
                 })
             }
+
+            //create JWT
+            var token=jwt.sign({email: req.body.email, userId: result._id},"MY_LONG_SECRET_KEY",{
+                expiresIn: '1h'
+            })
+
+            return res.status(200).json({
+                token: token
+            })
         })
-        // .catch(err=>{
-        //     return res.status(401).json({
-        //         message: 'Invalid credentials',
-        //         error: err
-        //     })
-        // })
+        .catch(err=>{
+            return res.status(401).json({
+                message: 'Invalid credentials',
+                error: err
+            })
+        })
 })
 
 //Post Data to Server
@@ -78,7 +76,7 @@ userRoutes.post('/signup',(req,res,next)=>{
     
         data.save()
             .then(returnData=>{
-                res.status(201).json({
+                res.status(200).json({
                     message: "User Created",
                     body: returnData
                 })

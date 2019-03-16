@@ -2,6 +2,7 @@ const express = require('express');//import express to the app
 const parser = require('body-parser');//install from npm install --save body-parser
 const mongoose = require('mongoose');
 var userRoutes=require('./routes/userRoutes');
+var productRoutes=require('./routes/productRoutes');
 
 //MongoDB / arinhere / .
 const app= express();//making it an express app
@@ -39,5 +40,7 @@ app.use((req,res,next)=>{ // Set the header settings to be used to send and rece
 
 //Mention Routes here
 app.use('/api/user',userRoutes);
+app.use('/api/products',productRoutes);
+
 
 module.exports=app; //export app
