@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "https://github.com/kelektiv/node.bcrypt.js.git#master"
     "body-parser": "^1.18.3",
     "core-js": "^2.4.1",
     "jsonwebtoken": "^8.5.0",
