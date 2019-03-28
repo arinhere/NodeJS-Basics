@@ -15,8 +15,6 @@ productRoutes.post('/add',checkAuth,(req,res,next)=>{
         createdBy: req.userData.userId //get the userid from token, as this route is protected
     })
 
-    console.log(data);
-
     data.save()//save data in database
         .then(returnData=>{
             return res.status(200).json({
@@ -26,6 +24,16 @@ productRoutes.post('/add',checkAuth,(req,res,next)=>{
         .catch(err=>{
             return res.status(201).json({
                 message: err
+            })
+        })
+})
+
+productRoutes.get("/",checkAuth,(req,res,next)=>{
+    product.find({createdBy: req.userData.userId})
+        .then(result=>{
+            return res.status(200).json({
+                body: result,
+                count: result.count
             })
         })
 })

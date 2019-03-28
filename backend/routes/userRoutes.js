@@ -17,7 +17,7 @@ userRoutes.post('/login',(req,res,next)=>{
             }
 
             //create JWT
-            var token=jwt.sign({email: req.body.email, userId: result._id},"MY_LONG_SECRET_KEY",{
+            var token=jwt.sign({userId: result._id},"MY_LONG_SECRET_KEY",{
                 expiresIn: '1h'
             })
 
