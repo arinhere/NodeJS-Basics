@@ -43,7 +43,8 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
-const port = normalizePort(process.env.PORT || "3000");//setting up default port. If env variable isn't set up then 3000 will be used as default.
+const port = normalizePort(process.env.PORT || "8080");//For AWS EC2
+//const port = normalizePort(process.env.PORT || "3000");//setting up default port. If env variable isn't set up then 3000 will be used as default.
 appRef.set('port',port);//set the port for the app.js 
 const server=http.createServer(appRef);//use createserver to make the call to app reference
 
