@@ -8,7 +8,7 @@ var productRoutes=require('./routes/productRoutes');
 const app= express();//making it an express app
 
 //mongoose.connect('mongodb://localhost:27017/AngularDB',()=>{
-mongoose.connect('mongodb://arinhere:arin123@ec2-3-83-188-115.compute-1.amazonaws.com:27017/ngrxDB',()=>{
+mongoose.connect('mongodb://arin:arin123@ec2-3-83-188-115.compute-1.amazonaws.com:27017/ngrxDB',()=>{
     console.log("Connected to the database")
 })
 .catch(err=>{
